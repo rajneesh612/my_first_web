@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Website</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">MyWebsite</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Welcome to My Website</h1>
+      <p>A simple, clean, and modern website built with HTML, CSS & JavaScript.</p>
+      <a href="#about" class="btn">Learn More</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About</h2>
+      <p>This is a basic website template. You can customize it to suit your needs.</p>
+    </div>
+  </section>
+
+  <section id="services" class="section bg-light">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Design</h3>
+          <p>Beautiful and responsive UI design.</p>
+        </div>
+        <div class="card">
+          <h3>Development</h3>
+          <p>Clean and efficient code.</p>
+        </div>
+        <div class="card">
+          <h3>Support</h3>
+          <p>Ongoing support and maintenance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact</h2>
+      <form id="contact-form">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <p id="form-response"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 MyWebsite. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
