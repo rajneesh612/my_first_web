@@ -12,7 +12,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
     "express": "^5.2.1"
   }
 }

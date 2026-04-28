@@ -4,21 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <header>
-    <nav>
-      <div class="logo">MyWebsite</div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div class="bg-orb orb-left"></div>
+  <div class="bg-orb orb-right"></div>
+
+  <section id="auth-gate" class="auth-gate">
+    <div class="auth-card">
+      <div class="auth-copy">
+        <div class="auth-pill">Secure Access</div>
+        <h1>Sign in to continue</h1>
+        <p>Only approved users can enter. If you do not have access, contact the admin.</p>
+        <div class="auth-stats">
+          <div>
+            <span>Admin</span>
+            <strong>Full access</strong>
+          </div>
+          <div>
+            <span>Client</span>
+            <strong>Assigned permissions</strong>
+          </div>
+        </div>
+      </div>
+      <form id="login-form" class="auth-form">
+        <h2>Account Login</h2>
+        <label>
+          Email
+          <input type="email" id="login-email" placeholder="you@email.com" required />
+        </label>
+        <label>
+          Password
+          <input type="password" id="login-password" placeholder="Your password" required />
+        </label>
+        <button type="submit" class="btn">Sign In</button>
+        <p id="login-response" class="form-response"></p>
+      </form>
+    </div>
+  </section>
+
+  <div id="app-content" class="app-content hidden">
+    <header>
+      <nav>
+        <div class="logo">MyWebsite</div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-user">
+          <span id="user-badge" class="user-badge">Signed in</span>
+          <button id="logout-btn" class="btn btn-outline" type="button">Logout</button>
+        </div>
+      </nav>
+    </header>
 
   <section id="home" class="hero">
     <div class="hero-content">
@@ -68,9 +112,10 @@
     </div>
   </section>
 
-  <footer>
-    <p>&copy; 2026 MyWebsite. All rights reserved.</p>
-  </footer>
+    <footer>
+      <p>&copy; 2026 MyWebsite. All rights reserved.</p>
+    </footer>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/main.js"></script>
