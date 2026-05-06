@@ -53,6 +53,10 @@
         <div class="logo">MyWebsite</div>
         <ul class="nav-links">
           <li><a href="#home">Home</a></li>
+          <li><button id="expense-open-btn" class="nav-action" type="button">Expenses</button></li>
+          <li><a href="#expense-dashboard">Dashboard</a></li>
+          <li><a href="#admin" id="admin-link">Admin</a></li>
+          <li><a href="#" id="chat-toggle-link">Chat</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -64,9 +68,276 @@
       </nav>
     </header>
 
+  <section id="expense-dashboard" class="section bg-light">
+    <div class="container">
+      <h2>Expense Dashboard</h2>
+      <p>Quick view of your spending trends and recent activity.</p>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <span>Total spent</span>
+          <strong id="dash-total">₹0</strong>
+          <small>All time</small>
+        </div>
+        <div class="dash-card">
+          <span>This month</span>
+          <strong id="dash-month">₹0</strong>
+          <small>Month to date</small>
+        </div>
+        <div class="dash-card">
+          <span>Entries</span>
+          <strong id="dash-count">0</strong>
+          <small>Total expenses</small>
+        </div>
+      </div>
+
+      <div class="dash-panels">
+        <div class="dash-panel">
+          <h3>Recent expenses</h3>
+          <div id="dash-recent" class="dash-list"></div>
+        </div>
+        <div class="dash-panel">
+          <h3>Top categories</h3>
+          <div id="dash-categories" class="dash-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="section admin-section bg-light" aria-hidden="true">
+    <div class="container">
+      <div class="admin-card">
+        <div class="admin-copy">
+          <h2>Admin: Create User</h2>
+          <p>Create new users who can sign in to this site.</p>
+          <div class="admin-note">
+            Roles supported: <strong>admin</strong>, <strong>user</strong>
+          </div>
+        </div>
+        <form id="admin-create-form" class="admin-form">
+          <label>
+            Name
+            <input type="text" id="admin-name" placeholder="Full name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="admin-email" placeholder="user@email.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="admin-password" placeholder="Set a password" required />
+          </label>
+          <label>
+            Role
+            <select id="admin-role" required>
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+          </label>
+          <button type="submit" class="btn">Create User</button>
+          <p id="admin-response" class="form-response"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin-expenses" class="section admin-section" aria-hidden="true">
+    <div class="container">
+      <div class="admin-expense-card">
+        <div class="admin-copy">
+          <h2>Admin: Manage Expenses</h2>
+          <p>Select a user to view or add expenses on their behalf.</p>
+        </div>
+        <div class="admin-expense-controls">
+          <label>
+            User
+            <select id="admin-expense-user" required></select>
+          </label>
+        </div>
+        <form id="admin-expense-form" class="admin-form">
+          <label>
+            Amount
+            <input type="number" id="admin-expense-amount" min="0" step="0.01" placeholder="0.00" required />
+          </label>
+          <label>
+            Category
+            <select id="admin-expense-category" required>
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Rent">Rent</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label>
+            Date
+            <input type="date" id="admin-expense-date" required />
+          </label>
+          <label>
+            Payment method
+            <select id="admin-expense-method" required>
+              <option value="">Select method</option>
+              <option value="Cash">Cash</option>
+              <option value="Card">Card</option>
+              <option value="UPI">UPI</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+          </label>
+          <label class="expense-note">
+            Note
+            <textarea id="admin-expense-note" rows="3" placeholder="Optional details"></textarea>
+          </label>
+          <button type="submit" class="btn">Add Expense</button>
+          <p id="admin-expense-status" class="form-response"></p>
+        </form>
+        <div class="expense-list-wrap">
+          <h3>Selected user expenses</h3>
+          <div id="admin-expense-list" class="expense-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin-dashboard" class="section admin-section bg-light" aria-hidden="true">
+    <div class="container">
+      <div class="admin-expense-card">
+        <div class="admin-copy">
+          <h2>Admin: Expense Dashboard</h2>
+          <p>Review expenses across all users or filter by a specific user.</p>
+        </div>
+        <div class="admin-expense-controls">
+          <label>
+            User filter
+            <select id="admin-dashboard-user" required></select>
+          </label>
+        </div>
+        <p id="admin-dashboard-status" class="form-response"></p>
+        <div class="admin-chart">
+          <div class="admin-chart-head">
+            <h3>User Spend Comparison</h3>
+            <span>All-time totals</span>
+          </div>
+          <div class="admin-chart-canvas">
+            <canvas id="admin-dashboard-chart" aria-label="User spend comparison" role="img"></canvas>
+          </div>
+        </div>
+        <div class="expense-list-wrap">
+          <h3>All expenses</h3>
+          <div id="admin-dashboard-list" class="expense-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin-stocks" class="section admin-section" aria-hidden="true">
+    <div class="container">
+      <div class="admin-expense-card">
+        <div class="admin-copy">
+          <h2>Admin: High Momentum Stocks</h2>
+          <p>Live scan for NIFTY 500 based on your momentum rules.</p>
+        </div>
+        <div class="admin-momentum-head">
+          <div>
+            <h3>Momentum Leaderboard</h3>
+            <p>Price vs MA, 52W/20D highs, volume surge, 3M return.</p>
+          </div>
+          <button id="admin-momentum-refresh" class="btn btn-outline" type="button">Refresh</button>
+        </div>
+        <p id="admin-momentum-status" class="form-response"></p>
+        <div class="admin-stocks-chart">
+          <canvas id="admin-momentum-chart" aria-label="High momentum stocks" role="img"></canvas>
+        </div>
+        <div class="admin-momentum-table">
+          <div class="admin-momentum-row admin-momentum-header">
+            <span>Symbol</span>
+            <span>Price</span>
+            <span>MA50</span>
+            <span>MA200</span>
+            <span>52W High</span>
+            <span>20D High</span>
+            <span>Vol x</span>
+            <span>3M Return</span>
+          </div>
+          <div id="admin-momentum-body" class="admin-momentum-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="chat-dock" class="chat-dock" aria-hidden="true" style="position: fixed; left: 1.5rem; bottom: 1.5rem; top: auto; right: auto;">
+    <button id="chat-toggle" class="chat-toggle" type="button" aria-expanded="false">
+      Chat
+    </button>
+    <div class="chat-panel">
+      <div class="chat-header">
+        <div>
+          <h2>Direct Chat</h2>
+          <p class="chat-subtitle">Admin and user can reply here.</p>
+        </div>
+        <button id="chat-close" class="chat-close" type="button" aria-label="Close chat">&times;</button>
+        <div class="chat-controls">
+          <label class="chat-label" id="chat-user-label" for="chat-user-select">Chat with</label>
+          <select id="chat-user-select" class="chat-select"></select>
+          <div id="chat-peer-pill" class="chat-pill"></div>
+        </div>
+      </div>
+
+      <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+
+      <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" placeholder="Type your message..." required />
+        <button type="submit" class="btn">Send</button>
+      </form>
+      <p id="chat-status" class="form-response"></p>
+    </div>
+  </div>
+
+  <div id="ai-bot-dock" class="ai-bot-dock" aria-hidden="true" style="position: fixed; right: 1.5rem; bottom: 1.5rem; top: auto; left: auto;">
+    <button id="ai-bot-toggle" class="ai-bot-toggle" type="button" aria-expanded="false">
+      AI Bot
+    </button>
+    <div class="ai-bot-panel">
+      <div class="ai-bot-header">
+        <div>
+          <h2>AI Stock Bot</h2>
+          <p class="ai-bot-subtitle">Try: "momentum stock where price is 3 month high" or "value stocks with low PE and low debt".</p>
+        </div>
+        <button id="ai-bot-close" class="ai-bot-close" type="button" aria-label="Close AI bot">&times;</button>
+      </div>
+      <p id="chat-bot-status" class="ai-bot-status"></p>
+      <div class="ai-bot-chart">
+        <div class="ai-bot-chart-meta">
+          <span id="ai-bot-chart-title" class="ai-bot-chart-title">Chart</span>
+          <span id="ai-bot-chart-subtitle" class="ai-bot-chart-subtitle"></span>
+        </div>
+        <button id="ai-bot-expand" class="ai-bot-expand" type="button" aria-label="Expand chart">[]</button>
+        <canvas id="chat-bot-chart"></canvas>
+      </div>
+      <div id="chat-bot-table" class="ai-bot-table"></div>
+      <form id="ai-bot-form" class="ai-bot-form">
+        <input type="text" id="ai-bot-input" placeholder="Ask for momentum or value stocks..." required />
+        <button type="submit" class="btn">Run</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="ai-bot-modal" class="ai-bot-modal" aria-hidden="true">
+    <div class="ai-bot-backdrop" data-ai-bot-close></div>
+    <div class="ai-bot-modal-card" role="dialog" aria-modal="true" aria-labelledby="ai-bot-modal-title">
+      <button id="ai-bot-modal-close" class="ai-bot-modal-close" type="button" aria-label="Close expanded chart">&times;</button>
+      <div class="ai-bot-modal-header">
+        <h3 id="ai-bot-modal-title">AI Stock Bot Chart</h3>
+      </div>
+      <div class="ai-bot-modal-chart">
+        <canvas id="ai-bot-modal-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
   <section id="home" class="hero">
     <div class="hero-content">
-      <h1>Welcome to My Website</h1>
+      <h1>Welcome to Expanse Management website</h1>
       <p>A simple, clean, and modern website built with HTML, CSS & JavaScript.</p>
       <a href="#about" class="btn">Learn More</a>
     </div>
@@ -75,7 +346,15 @@
   <section id="about" class="section">
     <div class="container">
       <h2>About</h2>
-      <p>This is a basic website template. You can customize it to suit your needs.</p>
+      <p>Welcome to our platform — a place where simplicity meets functionality.
+We are dedicated to building a seamless and user-friendly experience that helps users interact, manage, and achieve their goals efficiently.
+
+Our website is designed with a modern approach, focusing on performance, security, and ease of use. Whether you are accessing features, managing your account, or exploring our services, everything is structured to provide a smooth and reliable experience.
+
+We believe in continuous improvement and innovation. Our goal is to deliver solutions that not only meet user needs but also exceed expectations through clean design and robust technology.
+
+Thank you for being a part of our journey.
+</p>
     </div>
   </section>
 
@@ -117,7 +396,70 @@
     </footer>
   </div>
 
+  <div id="expense-modal" class="expense-modal" aria-hidden="true">
+    <div class="expense-backdrop" data-expense-close></div>
+    <div class="expense-card" role="dialog" aria-modal="true" aria-labelledby="expense-title">
+      <button id="expense-close" class="expense-close" type="button" aria-label="Close expenses">&times;</button>
+      <div class="expense-header">
+        <div>
+          <p class="expense-pill">Personal finance</p>
+          <h2 id="expense-title">Expense Manager</h2>
+          <p class="expense-subtitle">Track your daily spending with ease.</p>
+        </div>
+        <div class="expense-summary">
+          <span>Total spent</span>
+          <strong id="expense-total">₹0</strong>
+        </div>
+      </div>
+
+      <form id="expense-form" class="expense-form">
+        <label>
+          Amount
+          <input type="number" id="expense-amount" min="0" step="0.01" placeholder="0.00" required />
+        </label>
+        <label>
+          Category
+          <select id="expense-category" required>
+            <option value="">Select category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Rent">Rent</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>
+          Date
+          <input type="date" id="expense-date" required />
+        </label>
+        <label>
+          Payment method
+          <select id="expense-method" required>
+            <option value="">Select method</option>
+            <option value="Cash">Cash</option>
+            <option value="Card">Card</option>
+            <option value="UPI">UPI</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+          </select>
+        </label>
+        <label class="expense-note">
+          Note
+          <textarea id="expense-note" rows="3" placeholder="Optional details"></textarea>
+        </label>
+        <button type="submit" class="btn">Save Expense</button>
+        <p id="expense-status" class="form-response"></p>
+      </form>
+
+      <div class="expense-list-wrap">
+        <h3>Recent expenses</h3>
+        <div id="expense-list" class="expense-list"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
